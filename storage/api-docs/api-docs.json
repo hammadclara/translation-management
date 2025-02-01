@@ -1,0 +1,231 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Translation API",
+        "description": "API for managing translations in the application",
+        "contact": {
+            "email": "support@yourapp.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/translations": {
+            "get": {
+                "summary": "List translations",
+                "description": "List translations with pagination and filtering.",
+                "operationId": "434a55804ca50c9845bd4781c222a539",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tag",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translations found"
+                    },
+                    "404": {
+                        "description": "No translations found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new translation",
+                "description": "Store a new translation.",
+                "operationId": "fe38d8cf02ff5c92d2cd8d5dfb095e5f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "key",
+                                    "content"
+                                ],
+                                "properties": {
+                                    "key": {
+                                        "type": "string",
+                                        "example": "welcome_message"
+                                    },
+                                    "content": {
+                                        "type": "object",
+                                        "example": {
+                                            "en": "Welcome",
+                                            "fr": "Bienvenue"
+                                        }
+                                    },
+                                    "tag": {
+                                        "type": "string",
+                                        "example": "web"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Translation created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/translations/{id}": {
+            "get": {
+                "summary": "Get a translation by ID",
+                "description": "Get a single translation by ID.",
+                "operationId": "75883ef2ed1a98ead1086fde3b5b8967",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation found"
+                    },
+                    "404": {
+                        "description": "Translation not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a translation",
+                "description": "Update an existing translation.",
+                "operationId": "e314c7afaf04580ad65b747c8a1f7ce6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "content"
+                                ],
+                                "properties": {
+                                    "content": {
+                                        "type": "object",
+                                        "example": {
+                                            "en": "Welcome",
+                                            "fr": "Bienvenue"
+                                        }
+                                    },
+                                    "tag": {
+                                        "type": "string",
+                                        "example": "web"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Translation updated"
+                    },
+                    "404": {
+                        "description": "Translation not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/translations/export": {
+            "get": {
+                "summary": "Export translations as JSON",
+                "description": "Export all translations as JSON.",
+                "operationId": "52e76cf9a0dbfcb42b1d151b49f2b09b",
+                "responses": {
+                    "200": {
+                        "description": "Translations exported"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/translations/search": {
+            "get": {
+                "summary": "Search translations",
+                "description": "Search translations by key, tag, or content with pagination.",
+                "operationId": "37125c7da8b2fa8e457148f15ccd2698",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translations found"
+                    },
+                    "404": {
+                        "description": "No translations found"
+                    }
+                }
+            }
+        }
+    }
+}

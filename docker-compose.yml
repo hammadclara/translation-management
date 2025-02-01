@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: translation_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - translation-network
+
+  db:
+    image: mysql:8.0
+    container_name: translation_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE: translation_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - translation-network
+
+volumes:
+  dbdata:
+
+networks:
+  translation-network:
+    driver: bridge
