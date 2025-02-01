@@ -84,7 +84,7 @@ curl -X GET "http://localhost:8080/translations" \
 
 1. Clone the Repository:
    ```bash
-   git clone https://github.com/your-username/TranslationManagementService.git
+   git clone https://github.com/hammadclara/translation-management.git
    cd TranslationManagementService
    ```
 2. Set Up Environment Variables:
